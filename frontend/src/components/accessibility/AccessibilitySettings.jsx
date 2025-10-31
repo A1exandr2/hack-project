@@ -4,28 +4,31 @@ import './AccessibilitySettings.css';
 const AccessibilitySettings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [settings, setSettings] = useState({
-    colorScheme: 'default',
+    colorScheme: 'contrast',
     fontSize: 100,
-    effects: true
+    effects: false
   });
 
+  // Применяем настройки при монтировании
   useEffect(() => {
     const saved = localStorage.getItem('accessibilitySettings');
     if (saved) {
       const parsedSettings = JSON.parse(saved);
       setSettings(parsedSettings);
       applySettings(parsedSettings);
+    } else {
+      // Применяем контрастную тему по умолчанию
+      applySettings({
+        colorScheme: 'contrast',
+        fontSize: 100,
+        effects: false
+      });
     }
-  }, []);
+  }, []); // ✅ Без зависимостей — безопасно
 
   const applySettings = (newSettings) => {
-    // Цветовые схемы
     document.documentElement.setAttribute('data-color-scheme', newSettings.colorScheme);
-    
-    // Размер шрифта
     document.documentElement.style.fontSize = `${newSettings.fontSize}%`;
-    
-    // Эффекты
     if (!newSettings.effects) {
       document.documentElement.classList.add('no-effects');
     } else {
@@ -35,13 +38,10 @@ const AccessibilitySettings = () => {
 
   const handleSettingChange = (key, value) => {
     const newSettings = { ...settings, [key]: value };
-    
-    // Автоматически отключаем эффекты при смене на контрастную или темную схему
+    // Автоматически отключаем эффекты при выборе не-стандартной темы
     if (key === 'colorScheme' && value !== 'default') {
       newSettings.effects = false;
-      document.documentElement.classList.add('no-effects');
     }
-    
     setSettings(newSettings);
     applySettings(newSettings);
     localStorage.setItem('accessibilitySettings', JSON.stringify(newSettings));
@@ -49,23 +49,22 @@ const AccessibilitySettings = () => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      colorScheme: 'default',
+      colorScheme: 'contrast',
       fontSize: 100,
-      effects: true
+      effects: false
     };
     setSettings(defaultSettings);
     applySettings(defaultSettings);
     localStorage.setItem('accessibilitySettings', JSON.stringify(defaultSettings));
   };
 
-  // Закрытие панели при клике вне ее
+  // Закрытие панели при клике вне её
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest('.accessibility-settings')) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -82,7 +81,6 @@ const AccessibilitySettings = () => {
           <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5V7H9V5.5L3 7V9L5 9.7V15.5L3 16.3V18.5L9 17V19H15V17L21 18.5V16.3L19 15.5V9.7L21 9ZM15 15H9V9H15V15Z"/>
         </svg>
       </button>
-
       {isOpen && (
         <div className="accessibility-panel">
           <div className="accessibility-header">
@@ -91,7 +89,6 @@ const AccessibilitySettings = () => {
               Сбросить
             </button>
           </div>
-
           <div className="settings-grid">
             <div className="setting-group">
               <label>Цветовая схема:</label>
@@ -104,7 +101,6 @@ const AccessibilitySettings = () => {
                 <option value="dark">Тёмная</option>
               </select>
             </div>
-
             <div className="setting-group">
               <label>Размер шрифта:</label>
               <div className="font-size-controls">
@@ -128,7 +124,6 @@ const AccessibilitySettings = () => {
                 </button>
               </div>
             </div>
-
             <div className="setting-group">
               <div className="toggle-group">
                 <div className="toggle-label">
@@ -149,7 +144,6 @@ const AccessibilitySettings = () => {
               </div>
             </div>
           </div>
-
           {settings.colorScheme !== 'default' && (
             <div className="settings-notice">
               Для лучшей читаемости в {settings.colorScheme === 'contrast' ? 'контрастной' : 'тёмной'} теме анимации отключены

@@ -11,19 +11,21 @@ function App() {
   const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
-    // Применяем настройки доступности при загрузке
     const saved = localStorage.getItem('accessibilitySettings');
     if (saved) {
       const settings = JSON.parse(saved);
       document.documentElement.setAttribute('data-color-scheme', settings.colorScheme);
       document.documentElement.style.fontSize = `${settings.fontSize}%`;
-      
       if (!settings.effects) {
         document.documentElement.classList.add('no-effects');
       }
+    } else {
+      // Применяем контрастную тему по умолчанию
+      document.documentElement.setAttribute('data-color-scheme', 'contrast');
+      document.documentElement.style.fontSize = '100%';
+      document.documentElement.classList.add('no-effects');
     }
 
-    // Проверяем, показывали ли уже приветственный экран
     const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
     if (hasSeenWelcome) {
       setShowWelcome(false);
