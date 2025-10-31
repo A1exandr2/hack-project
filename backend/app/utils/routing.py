@@ -3,17 +3,7 @@ from typing import Optional, Tuple
 
 ORS_BASE_URL = "https://api.openrouteservice.org/v2/directions/foot-walking"
 
-async def get_ors_walking_time(
-    from_lat: float,
-    from_lon: float,
-    to_lat: float,
-    to_lon: float,
-    api_key: str,
-    timeout: float = 10.0
-) -> Optional[Tuple[float, float]]:
-    """
-    Возвращает (duration_sec, distance_m) или None при ошибке.
-    """
+async def get_ors_walking_time(from_lat: float, from_lon: float, to_lat: float, to_lon: float, api_key: str, timeout: float = 10.0):
     url = ORS_BASE_URL
     headers = {"Authorization": api_key}
     coords = [[from_lon, from_lat], [to_lon, to_lat]]

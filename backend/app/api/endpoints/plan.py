@@ -1,27 +1,24 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
-from typing import Optional
+from app.model.schemas import RoutePlanResponse, RequestModel
 from app.services.planner_service import generate_route_plan
 from app.utils.data_loader import load_and_prepare_data
+from app.services.geocode import geocode_address
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/api"
+)
 
 df, embeddings, model = load_and_prepare_data()
 
-class RequestModel(BaseModel):
-    interests: str
-    time_hours: float
-    user_lat: float
-    user_lon: float
-
-@router.post("/plan", summary="Сгенерировать туристический маршрут")
-async def plan_route(req: RequestModel):
+@router.post("/plan", summary="Сгенерить маршрут")
+async def plan_route(req: RequestModel) -> RoutePlanResponse:
+    user_lat, user_lon = await geocode_address(req.location)
     try:
         result = await generate_route_plan(
             req.interests,
             req.time_hours,
-            req.user_lat,
-            req.user_lon,
+            user_lat,
+            user_lon,
             df,
             embeddings,
             model
