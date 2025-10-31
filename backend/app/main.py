@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from app.api.endpoints.plan import router as plan_router
 from app.api.endpoints.getplaces import router as getplaces_router
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(
     title="AI Tourist Assistant - MAY",
@@ -11,9 +14,9 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:8080"],
     allow_credentials=True,
-    allow_methods=["*"],                      
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 

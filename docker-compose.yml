@@ -1,5 +1,12 @@
 version: '3.9'
 services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:3000"
+    depends_on:
+      - backend
+
   backend:
     build: ./backend
     ports:
@@ -8,13 +15,3 @@ services:
       - ./backend:/app
     environment:
       - PYTHONUNBUFFERED=1
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    depends_on:
-      - backend

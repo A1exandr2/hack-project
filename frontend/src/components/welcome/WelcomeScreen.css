@@ -1,0 +1,576 @@
+/* Стили для экрана приветствия */
+.welcome-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Улучшенный фон */
+.enhanced-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    /* Основной градиент с затемнением */
+    linear-gradient(135deg, rgba(86, 104, 200, 0.9) 0%, rgba(96, 65, 142, 0.9) 100%),
+    /* Дополнительные градиентные слои для глубины */
+    radial-gradient(ellipse at 20% 50%, rgba(120, 119, 198, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(100, 149, 237, 0.35) 0%, transparent 50%);
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+.bg-gradients {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.gradient-1, .gradient-2, .gradient-3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.7; /* Увеличиваем прозрачность для лучшего контраста */
+}
+
+.gradient-1 {
+  width: 300px;
+  height: 300px;
+  background: rgba(82, 106, 214, 0.5);
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.gradient-2 {
+  width: 400px;
+  height: 400px;
+  background: rgba(98, 55, 142, 0.4);
+  bottom: 10%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.gradient-3 {
+  width: 250px;
+  height: 250px;
+  background: rgba(69, 152, 234, 0.5);
+  top: 50%;
+  left: 70%;
+  animation-delay: 4s;
+}
+
+/* Парящие частицы */
+.floating-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.08); /* Уменьшаем яркость частиц */
+  border-radius: 50%;
+  animation: particleFloat 8s ease-in-out infinite;
+}
+
+.particle:nth-child(odd) {
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.particle:nth-child(even) {
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Анимации */
+@keyframes gradientShift {
+  0%, 100% {
+    filter: hue-rotate(0deg) brightness(0.9); /* Добавляем затемнение */
+  }
+  50% {
+    filter: hue-rotate(10deg) brightness(0.95);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(10px, -15px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-5px, -25px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate(-15px, -10px);
+    opacity: 0.6;
+  }
+}
+
+
+/* Главная карточка */
+.welcome-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  position: relative;
+  max-width: 480px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* Котик-герой */
+.cat-hero {
+  margin-bottom: 32px;
+}
+
+.cat-orb {
+  position: relative;
+  display: inline-block;
+}
+
+.magic-cat {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+  padding: 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  animation: 
+    catOrbit 4s ease-in-out infinite,
+    catPulse 2s ease-in-out infinite;
+  filter: 
+    drop-shadow(0 10px 25px rgba(0,0,0,0.3))
+    brightness(1.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cat-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: glowPulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+.magic-cat:hover {
+  transform: scale(1.15) rotate(5deg);
+  filter: 
+    drop-shadow(0 15px 35px rgba(0,0,0,0.4))
+    brightness(1.2);
+}
+
+@keyframes catOrbit {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+}
+
+@keyframes catPulse {
+  0%, 100% {
+    box-shadow: 
+      inset 0 0 20px rgba(255,255,255,0.1),
+      0 0 30px rgba(255,255,255,0.1);
+  }
+  50% {
+    box-shadow: 
+      inset 0 0 30px rgba(255,255,255,0.15),
+      0 0 40px rgba(255,255,255,0.15);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Контент */
+.welcome-content {
+  position: relative;
+  z-index: 2;
+}
+
+.brand-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  letter-spacing: -0.5px;
+}
+
+.brand-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+  margin-bottom: 32px;
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Фичи */
+.feature-highlight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 1.2rem;
+}
+
+.feature-divider {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+}
+
+/* Контейнер для кнопки с котиком */
+.cat-button-container {
+  position: relative;
+  margin: 32px 0;
+  width: 100%;
+}
+
+/* Анимированный котик */
+.walking-cat {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  animation: walkAround 6s linear infinite;
+  z-index: 10;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+}
+
+@keyframes walkAround {
+  0% {
+    left: -40px;
+    transform: translateY(-50%) scaleX(1);
+  }
+  45% {
+    left: calc(100% + 20px);
+    transform: translateY(-50%) scaleX(1);
+  }
+  50% {
+    left: calc(100% + 20px);
+    transform: translateY(-50%) scaleX(-1);
+  }
+  95% {
+    left: -40px;
+    transform: translateY(-50%) scaleX(-1);
+  }
+  100% {
+    left: -40px;
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+
+/* Кнопка CTA */
+.cta-button {
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 24px 48px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+  background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.15));
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.cta-button:active {
+  transform: translateY(-1px);
+}
+
+.cta-arrow {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Подпись команды */
+.team-signature {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  letter-spacing: 0.5px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .welcome-card {
+    padding: 32px;
+    border-radius: 24px;
+    max-width: 400px;
+  }
+  
+  .brand-title {
+    font-size: 2.5rem;
+  }
+  
+  .brand-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .magic-cat {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+  }
+  
+  .feature-highlight {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .feature-item {
+    padding: 10px 16px;
+  }
+  
+  .cta-button {
+    font-size: 1.1rem;
+    padding: 20px 32px;
+  }
+  
+  .walking-cat {
+    font-size: 1.7rem;
+    left: -30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-screen {
+    padding: 20px;
+  }
+  
+  .welcome-card {
+    padding: 24px;
+    border-radius: 20px;
+  }
+  
+  .brand-title {
+    font-size: 2.2rem;
+  }
+  
+  .brand-subtitle {
+    font-size: 1rem;
+  }
+  
+  .cta-button {
+    font-size: 1rem;
+    padding: 18px 24px;
+  }
+  
+  .walking-cat {
+    font-size: 1.5rem;
+    left: -25px;
+  }
+  
+  .team-signature {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+}
+
+/* Для режима без анимаций */
+.no-effects .walking-cat {
+  animation: none;
+}
+
+.no-effects .magic-cat {
+  animation: none;
+}
+
+.no-effects .cta-button:hover {
+  transform: none;
+}
+
+.no-effects .feature-item:hover {
+  transform: none;
+}
+/* ФИКС БЕЛОЙ ПОЛОСЫ */
+.welcome-screen::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: inherit;
+  z-index: -1;
+  filter: brightness(0.85); /* Дополнительное затемнение */
+}
+
+/* Альтернативное решение - более агрессивное */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.welcome-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  /* Убедись что нет отступов */
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Еще более темный фон */
+.enhanced-background {
+  position: absolute;
+  top: -50px; /* Увеличиваем область */
+  left: -50px;
+  width: calc(100% + 100px);
+  height: calc(100% + 100px);
+  background: 
+    linear-gradient(135deg, rgba(70, 90, 180, 0.95) 0%, rgba(80, 55, 130, 0.95) 100%),
+    radial-gradient(ellipse at 20% 50%, rgba(100, 99, 168, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(235, 99, 168, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(80, 129, 207, 0.35) 0%, transparent 50%);
+  animation: gradientShift 8s ease-in-out infinite;
+}

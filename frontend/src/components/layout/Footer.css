@@ -1,0 +1,20 @@
+.main-footer {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-color);
+  padding: var(--space-lg) 0;
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  text-align: center;
+}
+
+.main-footer p {
+  color: var(--text-tertiary);
+  margin: 0;
+  font-size: 0.9rem;
+}

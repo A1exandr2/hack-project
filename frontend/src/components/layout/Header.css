@@ -1,0 +1,106 @@
+.main-header {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-md) 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.logo-section {
+  flex: 1;
+  text-align: left;
+}
+
+.main-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 var(--space-xs) 0;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.main-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Специфичные стили для разных тем */
+:root[data-color-scheme="contrast"] .main-title {
+  background: linear-gradient(135deg, #000000, #0056b3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:root[data-color-scheme="dark"] .main-title {
+  background: linear-gradient(135deg, #f7fafc, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .main-header {
+    padding: var(--space-sm) 0;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-md);
+  }
+  
+  .logo-section {
+    text-align: center;
+  }
+  
+  .main-title {
+    font-size: 1.4rem;
+  }
+  
+  .main-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .header-container {
+    padding: 0 var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 1.2rem;
+  }
+  
+  .header-container {
+    padding: 0 var(--space-md);
+  }
+}
