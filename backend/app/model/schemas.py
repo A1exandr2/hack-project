@@ -6,6 +6,8 @@ class PlaceInPlan(BaseModel):
     why: str
     walking_time_min: float
     visit_duration_min: float
+    lat: float
+    lon: float
 
 class RouteSummary(BaseModel):
     total_places: int
@@ -19,4 +21,6 @@ class RoutePlanResponse(BaseModel):
 class RequestModel(BaseModel):
     interests: str
     time_hours: float
-    location: str
+    # location: str
+    user_lat: float
+    user_lon: float

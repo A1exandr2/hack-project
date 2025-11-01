@@ -1,4 +1,5 @@
 import './WelcomeScreen.css';
+import TelegramOrb from '../ui/TelegramOrb';
 
 export default function WelcomeScreen({ onStart }) {
   return (
@@ -54,8 +55,12 @@ export default function WelcomeScreen({ onStart }) {
             <span className="cta-arrow">⟶</span>
           </button>
 
-          <div className="team-signature">
-            от команды «may»
+          {/* Подпись и Telegram кнопка в одной строке */}
+          <div className="team-and-telegram">
+            <div className="team-signature">
+              от команды «may»
+            </div>
+            <TelegramOrb />
           </div>
         </div>
       </div>

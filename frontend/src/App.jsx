@@ -20,16 +20,14 @@ function App() {
         document.documentElement.classList.add('no-effects');
       }
     } else {
-      // Применяем контрастную тему по умолчанию
+      // Контрастная тема по умолчанию
       document.documentElement.setAttribute('data-color-scheme', 'contrast');
       document.documentElement.style.fontSize = '100%';
       document.documentElement.classList.add('no-effects');
     }
 
-    const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
-    if (hasSeenWelcome) {
-      setShowWelcome(false);
-    }
+    const hasSeen = localStorage.getItem('hasSeenWelcome');
+    if (hasSeen) setShowWelcome(false);
   }, []);
 
   const handleStart = () => {
@@ -56,6 +54,7 @@ function App() {
         )}
       </main>
       <Footer />
+      {/* УБРАЛИ СТАРУЮ ФИКСИРОВАННУЮ КНОПКУ ЗДЕСЬ */}
     </div>
   );
 }

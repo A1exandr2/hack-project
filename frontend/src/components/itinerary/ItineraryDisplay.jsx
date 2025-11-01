@@ -1,12 +1,11 @@
-// src/components/itinerary/ItineraryDisplay.jsx
 import { useState } from 'react';
+import YandexMap from '../map/YandexMap';
 
-export default function ItineraryDisplay({ planData }) {
-  // Используем `plan`, а не `timeline`!
+export default function ItineraryDisplay({ planData, onNewRoute }) {
   const plan = Array.isArray(planData?.plan) ? planData.plan : [];
   const summary = planData?.summary || {};
-
   const [currentView, setCurrentView] = useState('timeline');
+  const [showMap, setShowMap] = useState(false);
 
   // Иконки
   const LocationIcon = () => (
@@ -14,37 +13,62 @@ export default function ItineraryDisplay({ planData }) {
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
     </svg>
   );
-
   const TimeIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="icon-wrapper">
       <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
     </svg>
   );
-
   const WalkIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="icon-wrapper">
       <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
     </svg>
   );
 
-  // Защита: если данных нет
-  if (plan.length === 0 || summary.total_places === 0) {
+  if (plan.length === 0) {
     return (
       <div className="glass-card text-center">
         <h2>Маршрут не найден</h2>
         <p>Попробуйте выбрать центр города или изменить интересы.</p>
-        <button
-          onClick={() => window.location.reload()}
-          style={{ marginTop: '16px', padding: '12px 24px' }}
-        >
+        <button onClick={onNewRoute} style={{ marginTop: '16px' }}>
           Назад к форме
         </button>
       </div>
     );
   }
 
+  // Подготавливаем данные для карты: добавляем coordinates из lat/lon
+  const placesForMap = plan.map(place => ({
+    ...place,
+    // Убедимся, что lat и lon существуют и числовые
+    coordinates: (place.lat != null && place.lon != null) 
+      ? `${place.lat},${place.lon}` 
+      : null
+  })).filter(place => place.coordinates); // Оставляем только места с координатами
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* Кнопка "Назад" */}
+      <button
+        onClick={onNewRoute}
+        className="back-button"
+        style={{
+          background: 'var(--accent-gradient)',
+          color: 'white',
+          padding: '12px 24px',
+          border: 'none',
+          borderRadius: 'var(--radius-md)',
+          cursor: 'pointer',
+          width: 'fit-content',
+          alignSelf: 'flex-start',
+          marginBottom: '16px',
+          fontSize: '0.9rem',
+          fontWeight: '600',
+          transition: 'all var(--transition-normal)'
+        }}
+      >
+        ← Назад к построению маршрута
+      </button>
+
       {/* Итоги */}
       <div className="glass-card">
         <h2>Ваш маршрут готов!</h2>
@@ -123,7 +147,7 @@ export default function ItineraryDisplay({ planData }) {
         </div>
       </div>
 
-      {/* Отображение */}
+      {/* Контент */}
       {currentView === 'timeline' ? (
         <div className="glass-card">
           <h2>Таймлайн прогулки</h2>
@@ -198,7 +222,6 @@ export default function ItineraryDisplay({ planData }) {
                 </span>
                 {item.title}
               </h3>
-
               <div
                 style={{
                   background: 'rgba(255,255,255,0.1)',
@@ -214,8 +237,41 @@ export default function ItineraryDisplay({ planData }) {
         </div>
       )}
 
+      {/* Кнопка "Показать на карте" */}
       <button
-        onClick={() => window.location.reload()}
+        onClick={() => setShowMap(true)}
+        style={{
+          marginTop: '12px',
+          padding: '12px 24px',
+          background: 'var(--accent-primary)',
+          color: 'white',
+          border: 'none',
+          borderRadius: 'var(--radius-md)',
+          cursor: 'pointer',
+          fontSize: '1rem',
+          fontWeight: '600',
+          boxShadow: 'var(--shadow-md)',
+          transition: 'all 0.3s ease',
+          alignSelf: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}
+        disabled={placesForMap.length === 0} // Отключаем кнопку, если нет координат
+      >
+        🗺️ Показать на карте {placesForMap.length > 0 ? `(${placesForMap.length})` : '(координаты отсутствуют)'}
+      </button>
+
+      {/* Модальное окно карты */}
+      {showMap && placesForMap.length > 0 && (
+        <YandexMap
+          places={placesForMap}
+          onClose={() => setShowMap(false)}
+        />
+      )}
+
+      <button
+        onClick={onNewRoute}
         style={{
           width: '100%',
           padding: '18px',

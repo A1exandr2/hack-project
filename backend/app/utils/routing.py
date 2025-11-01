@@ -1,5 +1,5 @@
 import httpx
-from typing import Optional, Tuple
+import asyncio
 
 ORS_BASE_URL = "https://api.openrouteservice.org/v2/directions/foot-walking"
 
@@ -11,6 +11,7 @@ async def get_ors_walking_time(from_lat: float, from_lon: float, to_lat: float, 
 
     try:
         async with httpx.AsyncClient() as client:
+            await asyncio.sleep(0.6)
             r = await client.post(url, json=json_data, headers=headers, timeout=timeout)
             if r.status_code == 200:
                 data = r.json()

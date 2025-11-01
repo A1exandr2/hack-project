@@ -1,0 +1,351 @@
+/* ====================== ОБЩИЕ СТИЛИ ОКНА ====================== */
+.about-page {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-xl);
+  /* Увеличено: */
+  max-width: 900px;
+  width: 92%;
+  height: 92vh;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ====================== ЗАГОЛОВОК ====================== */
+.about-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.about-header h1 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: var(--accent-primary);
+}
+
+/* ====================== КОНТЕНТ ====================== */
+.about-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  overflow-y: auto;
+  padding-right: 8px; /* Для скролла */
+}
+
+/* ====================== СЕКЦИИ ====================== */
+.about-section {
+  padding: var(--space-lg);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent-primary);
+}
+
+.about-section h2 {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+}
+
+.about-section p,
+.about-section ol {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: var(--space-sm) 0;
+}
+
+.about-section ol {
+  padding-left: var(--space-lg);
+  list-style-type: decimal;
+}
+
+.about-section li {
+  margin-bottom: var(--space-xs);
+}
+
+/* ====================== БЛОК С КНОПКОЙ TELEGRAM ====================== */
+.telegram-container {
+  text-align: center;
+  padding: var(--space-lg) var(--space-xl);
+  margin: var(--space-lg) 0;
+}
+
+.telegram-button-group {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 8px;
+  gap: 8px;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.telegram-text-btn,
+.telegram-icon-btn {
+  background: white;
+  border: none;
+  border-radius: 40px;
+  padding: 12px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.telegram-text-btn {
+  padding: 12px 24px;
+  min-width: 150px;
+}
+
+.telegram-icon-btn {
+  padding: 12px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.telegram-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(1.2);
+  transition: filter 0.3s ease;
+}
+
+.telegram-icon-btn:hover .telegram-icon {
+  filter: brightness(1.4);
+}
+
+.telegram-button-group:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.telegram-text-btn:hover,
+.telegram-icon-btn:hover {
+  background: var(--accent-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+/* ====================== ПОДВАЛ ====================== */
+.about-footer {
+  text-align: center;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+.back-btn {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: var(--space-md) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.back-btn:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ====================== АДАПТИВНОСТЬ ====================== */
+@media (max-width: 768px) {
+  .about-page {
+    width: 96%;
+    height: 94vh;
+    padding: var(--space-lg);
+  }
+  .about-header h1 {
+    font-size: 1.5rem;
+  }
+  .about-section {
+    padding: var(--space-md);
+  }
+  .about-section h2 {
+    font-size: 1.2rem;
+  }
+  .telegram-button-group {
+    flex-direction: column;
+    padding: 12px;
+  }
+  .telegram-text-btn {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+  .telegram-icon-btn {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+  }
+  .telegram-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .back-btn {
+    font-size: 0.95rem;
+    padding: var(--space-sm) var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page {
+    width: 98%;
+    height: 96vh;
+    padding: var(--space-md);
+  }
+  .about-header h1 {
+    font-size: 1.3rem;
+  }
+  .about-section {
+    padding: var(--space-sm);
+  }
+  .about-section h2 {
+    font-size: 1.1rem;
+  }
+  .telegram-button-group {
+    padding: 8px;
+  }
+  .telegram-text-btn {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+  .telegram-icon-btn {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+  .telegram-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .back-btn {
+    font-size: 0.9rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
+/* ====================== ТЕМЫ ====================== */
+:root[data-color-scheme="contrast"] .about-page {
+  background: #ffffff;
+  border: 2px solid #2d3748;
+}
+
+:root[data-color-scheme="contrast"] .about-section {
+  background: #f8f9fa;
+  border-left: 4px solid var(--accent-primary);
+}
+
+:root[data-color-scheme="contrast"] .close-btn {
+  color: #2d3748;
+}
+
+:root[data-color-scheme="contrast"] .close-btn:hover {
+  color: var(--accent-primary);
+}
+
+:root[data-color-scheme="contrast"] .telegram-container {
+  background: #f8f9fa;
+  border: 1px solid #2d3748;
+}
+
+:root[data-color-scheme="contrast"] .telegram-button-group {
+  background: #ffffff;
+  border: 2px solid #2d3748;
+}
+
+:root[data-color-scheme="contrast"] .telegram-text-btn,
+:root[data-color-scheme="contrast"] .telegram-icon-btn {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #2d3748;
+}
+
+:root[data-color-scheme="contrast"] .telegram-text-btn:hover,
+:root[data-color-scheme="contrast"] .telegram-icon-btn:hover {
+  background: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+}
+
+:root[data-color-scheme="dark"] .about-page {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+:root[data-color-scheme="dark"] .about-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--accent-primary);
+}
+
+:root[data-color-scheme="dark"] .close-btn {
+  color: #e2e8f0;
+}
+
+:root[data-color-scheme="dark"] .close-btn:hover {
+  color: var(--accent-primary);
+}
+
+:root[data-color-scheme="dark"] .telegram-container {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:root[data-color-scheme="dark"] .telegram-button-group {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:root[data-color-scheme="dark"] .telegram-text-btn,
+:root[data-color-scheme="dark"] .telegram-icon-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:root[data-color-scheme="dark"] .telegram-text-btn:hover,
+:root[data-color-scheme="dark"] .telegram-icon-btn:hover {
+  background: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+}
+
+:root[data-color-scheme="dark"] .telegram-icon {
+  filter: brightness(1.5);
+}

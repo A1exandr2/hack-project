@@ -9,22 +9,16 @@ const AccessibilitySettings = () => {
     effects: false
   });
 
-  // Применяем настройки при монтировании
   useEffect(() => {
     const saved = localStorage.getItem('accessibilitySettings');
     if (saved) {
-      const parsedSettings = JSON.parse(saved);
-      setSettings(parsedSettings);
-      applySettings(parsedSettings);
+      const parsed = JSON.parse(saved);
+      setSettings(parsed);
+      applySettings(parsed);
     } else {
-      // Применяем контрастную тему по умолчанию
-      applySettings({
-        colorScheme: 'contrast',
-        fontSize: 100,
-        effects: false
-      });
+      applySettings({ colorScheme: 'contrast', fontSize: 100, effects: false });
     }
-  }, []); // ✅ Без зависимостей — безопасно
+  }, []);
 
   const applySettings = (newSettings) => {
     document.documentElement.setAttribute('data-color-scheme', newSettings.colorScheme);
@@ -38,7 +32,6 @@ const AccessibilitySettings = () => {
 
   const handleSettingChange = (key, value) => {
     const newSettings = { ...settings, [key]: value };
-    // Автоматически отключаем эффекты при выборе не-стандартной темы
     if (key === 'colorScheme' && value !== 'default') {
       newSettings.effects = false;
     }
@@ -48,22 +41,15 @@ const AccessibilitySettings = () => {
   };
 
   const resetSettings = () => {
-    const defaultSettings = {
-      colorScheme: 'contrast',
-      fontSize: 100,
-      effects: false
-    };
+    const defaultSettings = { colorScheme: 'contrast', fontSize: 100, effects: false };
     setSettings(defaultSettings);
     applySettings(defaultSettings);
     localStorage.setItem('accessibilitySettings', JSON.stringify(defaultSettings));
   };
 
-  // Закрытие панели при клике вне её
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest('.accessibility-settings')) {
-        setIsOpen(false);
-      }
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.accessibility-settings')) setIsOpen(false);
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -71,7 +57,7 @@ const AccessibilitySettings = () => {
 
   return (
     <div className="accessibility-settings">
-      <button 
+      <button
         className="accessibility-toggle"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Настройки доступности"
@@ -81,6 +67,7 @@ const AccessibilitySettings = () => {
           <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5V7H9V5.5L3 7V9L5 9.7V15.5L3 16.3V18.5L9 17V19H15V17L21 18.5V16.3L19 15.5V9.7L21 9ZM15 15H9V9H15V15Z"/>
         </svg>
       </button>
+
       {isOpen && (
         <div className="accessibility-panel">
           <div className="accessibility-header">
@@ -92,7 +79,7 @@ const AccessibilitySettings = () => {
           <div className="settings-grid">
             <div className="setting-group">
               <label>Цветовая схема:</label>
-              <select 
+              <select
                 value={settings.colorScheme}
                 onChange={(e) => handleSettingChange('colorScheme', e.target.value)}
               >
@@ -104,19 +91,19 @@ const AccessibilitySettings = () => {
             <div className="setting-group">
               <label>Размер шрифта:</label>
               <div className="font-size-controls">
-                <button 
+                <button
                   className={`size-btn ${settings.fontSize === 100 ? 'active' : ''}`}
                   onClick={() => handleSettingChange('fontSize', 100)}
                 >
                   100%
                 </button>
-                <button 
+                <button
                   className={`size-btn ${settings.fontSize === 125 ? 'active' : ''}`}
                   onClick={() => handleSettingChange('fontSize', 125)}
                 >
                   125%
                 </button>
-                <button 
+                <button
                   className={`size-btn ${settings.fontSize === 150 ? 'active' : ''}`}
                   onClick={() => handleSettingChange('fontSize', 150)}
                 >
@@ -129,7 +116,9 @@ const AccessibilitySettings = () => {
                 <div className="toggle-label">
                   <label>Эффекты анимации:</label>
                   <div className="toggle-description">
-                    {settings.colorScheme !== 'default' ? 'Доступно только в стандартной теме' : 'Включить анимации'}
+                    {settings.colorScheme !== 'default'
+                      ? 'Доступно только в стандартной теме'
+                      : 'Включить анимации'}
                   </div>
                 </div>
                 <label className="toggle">

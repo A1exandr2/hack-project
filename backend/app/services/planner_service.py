@@ -24,35 +24,32 @@ def is_park(place_row):
 def estimate_visit_duration(place_row):
     return 35.0 if is_park(place_row) else 25.0
 
-async def find_best_next_place(current_lat: float, current_lon: float, candidates: List[Dict], used_indices: set):
+async def find_best_next_place(current_lat: float, current_lon: float, candidates: List[Dict], used_titles: set):
     best_item = None
     best_walk_min = float('inf')
-    best_dist = 0
 
-    for item in candidates:
-        if item["index"] in used_indices:
+    for place in candidates:
+        if place["title"] in used_titles:
             continue
+
         res = await get_ors_walking_time(
             current_lat, current_lon,
-            item["row"]["lat"], item["row"]["lon"],
+            place["lat"], place["lon"],
             settings.ORS_API_KEY
         )
         if res is None:
-            est_dist_km = haversine_fast(current_lat, current_lon, item["row"]["lat"], item["row"]["lon"])
+            est_dist_km = haversine_fast(current_lat, current_lon, place["lat"], place["lon"])
             walk_min = (est_dist_km / 5.0) * 60
-            walk_m = est_dist_km * 1000
         else:
             walk_min = res[0] / 60
-            walk_m = res[1]
 
         if walk_min < best_walk_min:
             best_walk_min = walk_min
-            best_dist = walk_m
-            best_item = item
+            best_item = place
 
     if best_item is None:
         return None
-    return best_item, best_walk_min, best_dist
+    return best_item, best_walk_min
 
 async def explain_with_gigachat(interests: str, place_title: str, place_desc: str) -> str:
     """Генерирует персонализированное объяснение с помощью GigaChat."""
@@ -76,37 +73,36 @@ async def explain_with_gigachat(interests: str, place_title: str, place_desc: st
     except Exception as e:
         return f"Подобрано по вашему интересу: «{interests}»."
 
-async def build_route_chain(user_lat: float, user_lon: float, valid_places: List[Dict], max_duration_min: float):
+async def build_route_chain(user_lat: float, user_lon: float, places: List[Dict], max_duration_min: float):
     current_lat, current_lon = user_lat, user_lon
     route = []
     total_duration_min = 0.0
-    used_indices = set()
+    used_titles = set()
 
     for _ in range(5):
-        if len(used_indices) >= len(valid_places):
+        if len(used_titles) >= len(places):
             break
 
-        result = await find_best_next_place(current_lat, current_lon, valid_places, used_indices)
+        result = await find_best_next_place(current_lat, current_lon, places, used_titles)
         if result is None:
             break
 
-        best_item, walk_min, walk_m = result
-        visit_min = estimate_visit_duration(best_item["row"])
+        best_place, walk_min = result
+        visit_min = estimate_visit_duration(best_place)
         new_total = total_duration_min + walk_min + visit_min
 
         if new_total > max_duration_min:
             break
 
         route.append({
-            **best_item,
+            "place": best_place,
             "walk_min": walk_min,
-            "walk_m": walk_m,
             "visit_min": visit_min
         })
         total_duration_min = new_total
-        current_lat = best_item["row"]["lat"]
-        current_lon = best_item["row"]["lon"]
-        used_indices.add(best_item["index"])
+        current_lat = best_place["lat"]
+        current_lon = best_place["lon"]
+        used_titles.add(best_place["title"])
 
     return route
 
@@ -130,43 +126,21 @@ async def generate_route_plan(interests: str, time_hours: float, user_lat: float
     candidates = df_ranked[df_ranked['est_dist_km'] <= MAX_WALK_KM].head(20)
     if candidates.empty:
         raise ValueError("Нет объектов в радиусе")
-
-    # ors от пользователя до каждой точки
-    async def fetch_from_user(row):
-        res = await get_ors_walking_time(user_lat, user_lon, row['lat'], row['lon'], settings.ORS_API_KEY)
-        return (res, row) if res else None
-
-    tasks = [fetch_from_user(row) for _, row in candidates.iterrows()]
-    results = await asyncio.gather(*tasks, return_exceptions=True)
-    valid_places = []
-    for res in results:
-        if not isinstance(res, Exception) and res:
-            (duration_sec, distance_m), row = res
-            if duration_sec <= time_hours * 3600:
-                valid_places.append({
-                    "row": row,
-                    "index": row.name,
-                    "from_user_sec": duration_sec,
-                    "from_user_m": distance_m
-                })
-
-    if not valid_places:
-        raise ValueError("Нет объектов с учётом времени ходьбы")
-
-    # построение маршрута
-    route = await build_route_chain(user_lat, user_lon, valid_places, time_hours * 60)
+    
+    places_list = candidates.to_dict('records')
+    route = await build_route_chain(user_lat, user_lon, places_list, time_hours * 60)
 
     if not route:
         raise ValueError("Не удалось построить маршрут")
 
-    # объяснования
+    # обоснования
     explanation_tasks = [
         explain_with_gigachat(
             interests,
-            place["row"]["title"],
-            place["row"]["description"] or ""
+            step["place"]["title"],
+            step["place"].get("description", "") or ""
         )
-        for place in route
+        for step in route
     ]
     explanations = await asyncio.gather(*explanation_tasks)
 
@@ -175,15 +149,18 @@ async def generate_route_plan(interests: str, time_hours: float, user_lat: float
     total_walking_min = 0.0
     total_visit_min = 0.0
 
-    for i, place in enumerate(route):
+    for i, step in enumerate(route):
+        place = step["place"]
         plan.append({
-            "title": str(place["row"]["title"]),
+            "title": str(place["title"]),
             "why": explanations[i],
-            "walking_time_min": round(place["walk_min"], 1),
-            "visit_duration_min": place["visit_min"]
+            "walking_time_min": round(step["walk_min"], 1),
+            "visit_duration_min": step["visit_min"],
+            "lat": float(place["lat"]),
+            "lon": float(place["lon"])
         })
-        total_walking_min += place["walk_min"]
-        total_visit_min += place["visit_min"]
+        total_walking_min += step["walk_min"]
+        total_visit_min += step["visit_min"]
 
     total_duration_hours = (total_walking_min + total_visit_min) / 60
 

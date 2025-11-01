@@ -1,0 +1,73 @@
+/* Кнопка Telegram — круглая, со стекло-морфизмом */
+.telegram-button {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 6px 20px rgba(0, 136, 204, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.telegram-button:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 8px 25px rgba(0, 136, 204, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.telegram-button:active {
+  transform: scale(1.02);
+}
+
+/* Иконка Telegram */
+.telegram-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(1.2);
+  transition: filter 0.3s ease;
+}
+
+.telegram-button:hover .telegram-icon {
+  filter: brightness(1.4);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .telegram-button {
+    width: 44px;
+    height: 44px;
+  }
+  .telegram-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .telegram-button {
+    width: 40px;
+    height: 40px;
+  }
+  .telegram-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Отключаем анимацию в режиме без эффектов */
+.no-effects .telegram-button:hover {
+  transform: none !important;
+  box-shadow:
+    0 6px 20px rgba(0, 136, 204, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}

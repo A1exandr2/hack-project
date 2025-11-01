@@ -6,6 +6,8 @@ services:
       - "8080:3000"
     depends_on:
       - backend
+  bot:
+    build: ./bot
 
   backend:
     build: ./backend

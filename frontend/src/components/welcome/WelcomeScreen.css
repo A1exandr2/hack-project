@@ -574,3 +574,73 @@ html, body {
     radial-gradient(ellipse at 40% 80%, rgba(80, 129, 207, 0.35) 0%, transparent 50%);
   animation: gradientShift 8s ease-in-out infinite;
 }
+/* Блок с подписью и Telegram-кнопкой */
+.team-and-telegram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.team-signature {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Для контрастной темы */
+:root[data-color-scheme="contrast"] .team-and-telegram {
+  background: #f8f9fa;
+  border-color: #2d3748;
+}
+:root[data-color-scheme="contrast"] .team-signature {
+  background: #ffffff;
+  border-color: #2d3748;
+  color: #2d3748;
+}
+
+/* Для тёмной темы */
+:root[data-color-scheme="dark"] .team-and-telegram {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+:root[data-color-scheme="dark"] .team-signature {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .team-and-telegram {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+  .team-signature {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-and-telegram {
+    padding: 8px;
+  }
+  .team-signature {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+}

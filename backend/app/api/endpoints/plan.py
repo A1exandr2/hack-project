@@ -12,13 +12,13 @@ df, embeddings, model = load_and_prepare_data()
 
 @router.post("/plan", summary="Сгенерить маршрут")
 async def plan_route(req: RequestModel) -> RoutePlanResponse:
-    user_lat, user_lon = await geocode_address(req.location)
+    # user_lat, user_lon = await geocode_address(req.location)
     try:
         result = await generate_route_plan(
             req.interests,
             req.time_hours,
-            user_lat,
-            user_lon,
+            req.user_lat,
+            req.user_lon,
             df,
             embeddings,
             model
