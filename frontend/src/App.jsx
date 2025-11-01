@@ -20,7 +20,6 @@ function App() {
         document.documentElement.classList.add('no-effects');
       }
     } else {
-      // Контрастная тема по умолчанию
       document.documentElement.setAttribute('data-color-scheme', 'contrast');
       document.documentElement.style.fontSize = '100%';
       document.documentElement.classList.add('no-effects');
@@ -54,7 +53,6 @@ function App() {
         )}
       </main>
       <Footer />
-      {/* УБРАЛИ СТАРУЮ ФИКСИРОВАННУЮ КНОПКУ ЗДЕСЬ */}
     </div>
   );
 }

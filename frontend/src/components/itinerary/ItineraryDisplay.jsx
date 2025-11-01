@@ -7,7 +7,6 @@ export default function ItineraryDisplay({ planData, onNewRoute }) {
   const [currentView, setCurrentView] = useState('timeline');
   const [showMap, setShowMap] = useState(false);
 
-  // Иконки
   const LocationIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="icon-wrapper">
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
@@ -36,18 +35,15 @@ export default function ItineraryDisplay({ planData, onNewRoute }) {
     );
   }
 
-  // Подготавливаем данные для карты: добавляем coordinates из lat/lon
   const placesForMap = plan.map(place => ({
     ...place,
-    // Убедимся, что lat и lon существуют и числовые
     coordinates: (place.lat != null && place.lon != null) 
       ? `${place.lat},${place.lon}` 
       : null
-  })).filter(place => place.coordinates); // Оставляем только места с координатами
+  })).filter(place => place.coordinates);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Кнопка "Назад" */}
       <button
         onClick={onNewRoute}
         className="back-button"
@@ -69,7 +65,6 @@ export default function ItineraryDisplay({ planData, onNewRoute }) {
         ← Назад к построению маршрута
       </button>
 
-      {/* Итоги */}
       <div className="glass-card">
         <h2>Ваш маршрут готов!</h2>
         <div
@@ -101,7 +96,6 @@ export default function ItineraryDisplay({ planData, onNewRoute }) {
         </div>
       </div>
 
-      {/* Переключатель */}
       <div className="glass-card" style={{ padding: '16px' }}>
         <div
           style={{
@@ -147,7 +141,6 @@ export default function ItineraryDisplay({ planData, onNewRoute }) {
         </div>
       </div>
 
-      {/* Контент */}
       {currentView === 'timeline' ? (
         <div className="glass-card">
           <h2>Таймлайн прогулки</h2>
@@ -237,7 +230,6 @@ export default function ItineraryDisplay({ planData, onNewRoute }) {
         </div>
       )}
 
-      {/* Кнопка "Показать на карте" */}
       <button
         onClick={() => setShowMap(true)}
         style={{
@@ -257,12 +249,11 @@ export default function ItineraryDisplay({ planData, onNewRoute }) {
           alignItems: 'center',
           gap: '8px'
         }}
-        disabled={placesForMap.length === 0} // Отключаем кнопку, если нет координат
+        disabled={placesForMap.length === 0}
       >
-        🗺️ Показать на карте {placesForMap.length > 0 ? `(${placesForMap.length})` : '(координаты отсутствуют)'}
+        Показать на карте {placesForMap.length > 0 ? `(${placesForMap.length})` : '(координаты отсутствуют)'}
       </button>
 
-      {/* Модальное окно карты */}
       {showMap && placesForMap.length > 0 && (
         <YandexMap
           places={placesForMap}

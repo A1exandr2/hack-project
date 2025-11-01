@@ -1,12 +1,9 @@
-/* ====================== БАЗОВЫЕ ПЕРЕМЕННЫЕ ====================== */
 :root {
-  /* Радиусы */
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
 
-  /* Отступы (8px grid system) */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -15,21 +12,18 @@
   --space-2xl: 48px;
   --space-3xl: 64px;
 
-  /* Анимации */
   --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
 
-  /* Тени */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.2);
   --shadow-2xl: 0 35px 60px rgba(0, 0, 0, 0.3);
 
-  /* Цветовая схема по умолчанию */
   --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --bg-secondary: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
   --text-primary: #2d3748;
@@ -46,7 +40,6 @@
   --error: #f56565;
 }
 
-/* ====================== КОНТРАСТНАЯ ЦВЕТОВАЯ СХЕМА ====================== */
 :root[data-color-scheme="contrast"] {
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
@@ -63,14 +56,12 @@
   --warning: #fd7e14;
   --error: #dc3545;
 
-  /* Тени */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* ====================== ТЁМНАЯ ЦВЕТОВАЯ СХЕМА ====================== */
 :root[data-color-scheme="dark"] {
   --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   --bg-secondary: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
@@ -87,14 +78,12 @@
   --warning: #ed8936;
   --error: #f56565;
 
-  /* Тени */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
   --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.6);
 }
 
-/* ====================== RESET И БАЗОВЫЕ СТИЛИ ====================== */
 * {
   margin: 0;
   padding: 0;
@@ -118,7 +107,6 @@ body {
   position: relative;
 }
 
-/* Паттерн Нижнего Новгорода */
 body::before {
   content: '';
   position: fixed;
@@ -161,12 +149,10 @@ body::before {
   opacity: 0.4;
 }
 
-/* Скрываем паттерн для контрастной темы */
 :root[data-color-scheme="contrast"] body::before {
   display: none;
 }
 
-/* ====================== ТИПОГРАФИКА ====================== */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.25;
@@ -199,7 +185,6 @@ p {
   line-height: 1.6;
 }
 
-/* ====================== ОБЩИЕ КОНТЕЙНЕРЫ ====================== */
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -211,7 +196,6 @@ p {
   position: relative;
 }
 
-/* Информационная плашка */
 .info-banner {
   background: var(--accent-gradient);
   color: white;
@@ -241,7 +225,6 @@ p {
   left: 100%;
 }
 
-/* Карточка со стекло-морфизмом */
 .glass-card {
   background: var(--card-bg);
   backdrop-filter: blur(20px) saturate(180%);
@@ -271,7 +254,6 @@ p {
   box-shadow: var(--shadow-xl);
 }
 
-/* ====================== ФОРМЫ И ПОЛЯ ВВОДА ====================== */
 .form-group {
   margin-bottom: var(--space-xl);
 }
@@ -315,7 +297,6 @@ input:focus, textarea:focus, select:focus {
   opacity: 0.8;
 }
 
-/* ====================== КНОПКИ ====================== */
 button {
   background: var(--accent-gradient);
   color: white;
@@ -361,7 +342,6 @@ button:disabled {
   transform: none;
 }
 
-/* ====================== СЕТКА КАТЕГОРИЙ ====================== */
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -416,7 +396,6 @@ button:disabled {
   line-height: 1.2;
 }
 
-/* Анимация для активной категории */
 .category-btn.active .category-emoji {
   animation: bounce 0.6s ease;
 }
@@ -433,9 +412,6 @@ button:disabled {
   }
 }
 
-/* ====================== СТИЛИ ДЛЯ РАЗНЫХ ТЕМ ====================== */
-
-/* Специфичные стили для светлой темы */
 :root[data-color-scheme="default"] .category-btn {
   background: rgba(255, 255, 255, 0.25);
   border-color: rgba(255, 255, 255, 0.4);
@@ -455,7 +431,6 @@ button:disabled {
   text-shadow: none;
 }
 
-/* Стили для контрастной темы */
 :root[data-color-scheme="contrast"] .category-btn {
   background: #ffffff;
   border: 2px solid var(--border-color);
@@ -479,7 +454,6 @@ button:disabled {
   filter: brightness(0) invert(1);
 }
 
-/* Стили для темной темы */
 :root[data-color-scheme="dark"] .category-btn {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.15);
@@ -496,7 +470,6 @@ button:disabled {
   border-color: var(--accent-primary);
 }
 
-/* ====================== АДАПТИВНОСТЬ ====================== */
 @media (max-width: 768px) {
   .container {
     padding: var(--space-lg);
@@ -538,7 +511,6 @@ button:disabled {
     gap: var(--space-md);
   }
 
-  /* Упрощаем паттерн на мобильных */
   body::before {
     opacity: 0.2;
     background-size:
@@ -577,7 +549,6 @@ button:disabled {
   }
 }
 
-/* ====================== РЕЖИМ БЕЗ ЭФФЕКТОВ ====================== */
 .no-effects * {
   transition: none !important;
   animation: none !important;
@@ -623,7 +594,6 @@ button:disabled {
   left: -100% !important;
 }
 
-/* ====================== УЛУЧШЕНИЯ ДЛЯ КОНТРАСТНОЙ ТЕМЫ ====================== */
 :root[data-color-scheme="contrast"] .glass-card {
   background: #ffffff;
   border: 2px solid var(--border-color);
@@ -654,7 +624,6 @@ button:disabled {
   opacity: 0.3;
 }
 
-/* ====================== ЗАЩИТА ОТ ПЕРЕКРЫТИЯ КОНТЕНТА ====================== */
 .accessibility-settings {
   z-index: 1001;
 }
@@ -664,7 +633,6 @@ button:disabled {
   z-index: 1;
 }
 
-/* ====================== УЛУЧШЕННАЯ ВИДИМОСТЬ КНОПКИ НАСТРОЕК ====================== */
 .accessibility-toggle svg {
   color: var(--text-primary);
 }
@@ -673,7 +641,6 @@ button:disabled {
   color: #000000;
 }
 
-/* ====================== МОДАЛЬНОЕ ОКНО ====================== */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -702,7 +669,6 @@ button:disabled {
   position: relative;
 }
 
-/* ====================== КНОПКА TELEGRAM В ПРАВОМ НИЖНЕМ УГЛУ ====================== */
 .fixed-telegram-button {
   position: fixed;
   bottom: 20px;
@@ -731,7 +697,6 @@ button:disabled {
   box-shadow: var(--shadow-lg);
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .fixed-telegram-button {
     bottom: 10px;

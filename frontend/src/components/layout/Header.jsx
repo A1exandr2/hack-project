@@ -20,7 +20,6 @@ const Header = () => {
               </p>
             </div>
             <div className="header-controls">
-              {/* Кнопки навигации */}
               <nav className="nav-menu">
                 <button
                   onClick={() => window.location.reload()}
@@ -41,7 +40,6 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Модальное окно "О сервисе" */}
       {showAbout && (
         <div className="modal-overlay" onClick={() => setShowAbout(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>

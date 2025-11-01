@@ -1,4 +1,3 @@
-/* Кнопка Telegram — круглая, со стекло-морфизмом */
 .telegram-button {
   position: relative;
   width: 50px;
@@ -29,7 +28,6 @@
   transform: scale(1.02);
 }
 
-/* Иконка Telegram */
 .telegram-icon {
   width: 24px;
   height: 24px;
@@ -41,7 +39,6 @@
   filter: brightness(1.4);
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .telegram-button {
     width: 44px;
@@ -64,7 +61,6 @@
   }
 }
 
-/* Отключаем анимацию в режиме без эффектов */
 .no-effects .telegram-button:hover {
   transform: none !important;
   box-shadow:

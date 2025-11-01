@@ -25,7 +25,6 @@ export default function QuestionForm({ onPlanReceived }) {
     { id: 9, name: 'история', description: 'Исторические территории'}
   ];
 
-  // Загрузка карты при монтировании
   useEffect(() => {
     if (!window.ymaps) {
       console.error('Yandex Maps API не загружен');
@@ -128,7 +127,6 @@ export default function QuestionForm({ onPlanReceived }) {
 
     setLoading(true);
     try {
-      // Правильный формат данных согласно примеру
       const requestData = {
         interests: interests.trim(),
         time_hours: timeHours,
@@ -167,23 +165,19 @@ export default function QuestionForm({ onPlanReceived }) {
     }
   };
 
-  // Функция для тестирования с примером данных
   const testWithExampleData = () => {
     setInterests('музеи');
     setTime('8');
     setUserLat(56.324355);
     setUserLon(44.006433);
     
-    // Автоматически установить метку на карте
     if (ymapRef.current?.map) {
       const coords = [56.324355, 44.006433];
       
-      // Удаляем старую метку
       if (ymapRef.current.placemark) {
         ymapRef.current.map.geoObjects.remove(ymapRef.current.placemark);
       }
-      
-      // Добавляем новую метку
+
       const placemark = new window.ymaps.Placemark(
         coords,
         { hintContent: 'Тестовая точка' },
@@ -192,7 +186,6 @@ export default function QuestionForm({ onPlanReceived }) {
       ymapRef.current.map.geoObjects.add(placemark);
       ymapRef.current.placemark = placemark;
       
-      // Центрируем карту на точке
       ymapRef.current.map.setCenter(coords, 15);
     }
   };
@@ -201,7 +194,6 @@ export default function QuestionForm({ onPlanReceived }) {
     <div className="glass-card">
       <h2 className="text-center mb-lg">AI-Помощник туриста</h2>
 
-      {/* Кнопка для тестирования с примером данных */}
       <div style={{ marginBottom: '20px', textAlign: 'center' }}>
         <button
           type="button"

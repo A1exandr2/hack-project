@@ -1,4 +1,3 @@
-/* Стили для экрана приветствия */
 .welcome-screen {
   min-height: 100vh;
   display: flex;
@@ -10,7 +9,6 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Улучшенный фон */
 .enhanced-background {
   position: absolute;
   top: 0;
@@ -18,9 +16,7 @@
   width: 100%;
   height: 100%;
   background: 
-    /* Основной градиент с затемнением */
     linear-gradient(135deg, rgba(86, 104, 200, 0.9) 0%, rgba(96, 65, 142, 0.9) 100%),
-    /* Дополнительные градиентные слои для глубины */
     radial-gradient(ellipse at 20% 50%, rgba(120, 119, 198, 0.4) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
     radial-gradient(ellipse at 40% 80%, rgba(100, 149, 237, 0.35) 0%, transparent 50%);
@@ -38,7 +34,7 @@
   border-radius: 50%;
   filter: blur(60px);
   animation: float 6s ease-in-out infinite;
-  opacity: 0.7; /* Увеличиваем прозрачность для лучшего контраста */
+  opacity: 0.7;
 }
 
 .gradient-1 {
@@ -68,7 +64,6 @@
   animation-delay: 4s;
 }
 
-/* Парящие частицы */
 .floating-particles {
   position: absolute;
   width: 100%;
@@ -77,7 +72,7 @@
 
 .particle {
   position: absolute;
-  background: rgba(255, 255, 255, 0.08); /* Уменьшаем яркость частиц */
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 50%;
   animation: particleFloat 8s ease-in-out infinite;
 }
@@ -94,10 +89,9 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Анимации */
 @keyframes gradientShift {
   0%, 100% {
-    filter: hue-rotate(0deg) brightness(0.9); /* Добавляем затемнение */
+    filter: hue-rotate(0deg) brightness(0.9);
   }
   50% {
     filter: hue-rotate(10deg) brightness(0.95);
@@ -135,7 +129,6 @@
 }
 
 
-/* Главная карточка */
 .welcome-card {
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(25px) saturate(180%);
@@ -154,7 +147,6 @@
   margin: 0 auto;
 }
 
-/* Котик-герой */
 .cat-hero {
   margin-bottom: 32px;
 }
@@ -243,7 +235,6 @@
   }
 }
 
-/* Контент */
 .welcome-content {
   position: relative;
   z-index: 2;
@@ -271,7 +262,6 @@
   text-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-/* Фичи */
 .feature-highlight {
   display: flex;
   align-items: center;
@@ -311,14 +301,12 @@
   font-weight: bold;
 }
 
-/* Контейнер для кнопки с котиком */
 .cat-button-container {
   position: relative;
   margin: 32px 0;
   width: 100%;
 }
 
-/* Анимированный котик */
 .walking-cat {
   position: absolute;
   top: 50%;
@@ -353,7 +341,6 @@
   }
 }
 
-/* Кнопка CTA */
 .cta-button {
   background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
   color: white;
@@ -413,7 +400,6 @@
   transform: translateX(4px);
 }
 
-/* Подпись команды */
 .team-signature {
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.7);
@@ -427,7 +413,6 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .welcome-card {
     padding: 32px;
@@ -503,7 +488,6 @@
   }
 }
 
-/* Для режима без анимаций */
 .no-effects .walking-cat {
   animation: none;
 }
@@ -519,7 +503,7 @@
 .no-effects .feature-item:hover {
   transform: none;
 }
-/* ФИКС БЕЛОЙ ПОЛОСЫ */
+
 .welcome-screen::before {
   content: '';
   position: absolute;
@@ -529,10 +513,9 @@
   bottom: -10px;
   background: inherit;
   z-index: -1;
-  filter: brightness(0.85); /* Дополнительное затемнение */
+  filter: brightness(0.85);
 }
 
-/* Альтернативное решение - более агрессивное */
 body {
   margin: 0;
   padding: 0;
@@ -553,17 +536,15 @@ html, body {
   position: relative;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
-  /* Убедись что нет отступов */
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
 }
 
-/* Еще более темный фон */
 .enhanced-background {
   position: absolute;
-  top: -50px; /* Увеличиваем область */
+  top: -50px;
   left: -50px;
   width: calc(100% + 100px);
   height: calc(100% + 100px);
@@ -574,7 +555,7 @@ html, body {
     radial-gradient(ellipse at 40% 80%, rgba(80, 129, 207, 0.35) 0%, transparent 50%);
   animation: gradientShift 8s ease-in-out infinite;
 }
-/* Блок с подписью и Telegram-кнопкой */
+
 .team-and-telegram {
   display: flex;
   align-items: center;
@@ -600,7 +581,6 @@ html, body {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Для контрастной темы */
 :root[data-color-scheme="contrast"] .team-and-telegram {
   background: #f8f9fa;
   border-color: #2d3748;
@@ -611,7 +591,6 @@ html, body {
   color: #2d3748;
 }
 
-/* Для тёмной темы */
 :root[data-color-scheme="dark"] .team-and-telegram {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.15);
@@ -622,7 +601,6 @@ html, body {
   color: #e2e8f0;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .team-and-telegram {
     flex-direction: column;

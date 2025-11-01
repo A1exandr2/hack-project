@@ -78,7 +78,6 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
-/* Стили для балунов Яндекс Карт */
 .ymaps-balloon {
   border-radius: 12px !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
@@ -90,7 +89,6 @@
   margin: 0 !important;
 }
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .map-modal-overlay {
     padding: 10px;

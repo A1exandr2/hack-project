@@ -12,13 +12,11 @@ export default function YandexMap({ places, onClose }) {
     }
 
     const init = async () => {
-      // Уничтожаем предыдущую карту, если она существует
       if (mapInstanceRef.current) {
         mapInstanceRef.current.destroy();
         mapInstanceRef.current = null;
       }
 
-      // Создаём карту, центрируем на Нижнем Новгороде
       const map = new window.ymaps.Map(mapRef.current, {
         center: [56.3268, 44.0060],
         zoom: 13,
@@ -27,17 +25,14 @@ export default function YandexMap({ places, onClose }) {
 
       mapInstanceRef.current = map;
 
-      // Фильтруем места с координатами
       const validPlaces = places.filter(p => p.coordinates);
       if (validPlaces.length === 0) return;
 
-      // Преобразуем координаты: "56.3285,44.0012" → [56.3285, 44.0012]
       const coords = validPlaces.map(p => {
         const [lat, lon] = p.coordinates.split(',').map(Number);
         return [lat, lon];
       });
 
-      // Добавляем маркеры с нумерацией
       const placemarks = [];
       coords.forEach(([lat, lon], idx) => {
         const place = validPlaces[idx];
@@ -62,10 +57,8 @@ export default function YandexMap({ places, onClose }) {
         placemarks.push(placemark);
       });
 
-      // Строим маршрут между точками
       if (coords.length > 1) {
         try {
-          // Создаем многослойную линию для маршрута
           const route = new window.ymaps.Polyline(
             coords,
             {},
@@ -76,10 +69,8 @@ export default function YandexMap({ places, onClose }) {
             }
           );
 
-          // Добавляем маршрут на карту
           map.geoObjects.add(route);
 
-          // Добавляем стрелки направления на маршрут
           coords.slice(0, -1).forEach((coord, index) => {
             const nextCoord = coords[index + 1];
             const midPoint = [
@@ -105,14 +96,12 @@ export default function YandexMap({ places, onClose }) {
         }
       }
 
-      // Авто-масштабирование под все точки с учетом маршрута
       const bounds = window.ymaps.util.bounds.fromPoints(coords);
       map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 80 });
     };
 
     window.ymaps.ready(init);
 
-    // Очистка при размонтировании
     return () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.destroy();

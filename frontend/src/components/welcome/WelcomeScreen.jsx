@@ -4,7 +4,6 @@ import TelegramOrb from '../ui/TelegramOrb';
 export default function WelcomeScreen({ onStart }) {
   return (
     <div className="welcome-screen">
-      {/* Улучшенный фон */}
       <div className="enhanced-background">
         <div className="bg-gradients">
           <div className="gradient-1"></div>
@@ -18,9 +17,7 @@ export default function WelcomeScreen({ onStart }) {
         </div>
       </div>
 
-      {/* Главная карточка */}
       <div className="welcome-card">
-        {/* Котик */}
         <div className="cat-hero">
           <div className="cat-orb">
             <img 
@@ -32,7 +29,6 @@ export default function WelcomeScreen({ onStart }) {
           </div>
         </div>
 
-        {/* Контент */}
         <div className="welcome-content">
           <h1 className="brand-title">
             AI-ГИД
@@ -55,7 +51,6 @@ export default function WelcomeScreen({ onStart }) {
             <span className="cta-arrow">⟶</span>
           </button>
 
-          {/* Подпись и Telegram кнопка в одной строке */}
           <div className="team-and-telegram">
             <div className="team-signature">
               от команды «may»

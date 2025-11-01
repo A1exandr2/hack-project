@@ -215,7 +215,6 @@ input:disabled + .toggle-slider {
   line-height: 1.4;
 }
 
-/* Улучшенные стили для разных цветовых схем */
 :root[data-color-scheme="default"] .accessibility-toggle {
   background: rgba(255, 255, 255, 0.95);
   border-color: rgba(255, 255, 255, 0.3);
@@ -257,7 +256,6 @@ input:disabled + .toggle-slider {
   color: #2d3748;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .accessibility-panel {
     position: fixed;

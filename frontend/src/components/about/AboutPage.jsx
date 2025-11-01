@@ -41,7 +41,6 @@ export default function AboutPage({ onClose }) {
         </div>
       </div>
 
-      {/* БЛОК С КНОПКОЙ TELEGRAM В СТИЛЕ КАПСУЛЫ */}
       <div className="telegram-container">
         <div className="telegram-button-group">
           <button className="telegram-text-btn">от команды «may»</button>
